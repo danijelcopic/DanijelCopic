@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
@@ -42,6 +41,7 @@ import java.sql.SQLException;
 import rs.aleph.android.example13.R;
 import rs.aleph.android.example13.activities.db.DatabaseHelper;
 import rs.aleph.android.example13.activities.db.model.Attraction;
+import rs.aleph.android.example13.activities.dialogs.AboutDialog;
 
 
 import static rs.aleph.android.example13.activities.activity.FirstActivity.NOTIF_TOAST;
@@ -110,27 +110,25 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         // na osnovu dobijene pozicije od intenta, pupunjavamo polja u drugoj aktivnosti
         try {
 
-            attraction = getDatabaseHelper().getmRealEstateDao().queryForId((int) position);
+            attraction = getDatabaseHelper().getmAttractionDao().queryForId((int) position);
 
             String name = attraction.getmName();
 
             String description = attraction.getmDescription();
-
-            //String picture = attraction.getmPictures();
 
             String address = attraction.getmAddress();
 
             int phone = attraction.getmPhone();
             String stringPhone = Integer.toString(phone);
 
-            double square = attraction.getmSquare();
-            String stringSquare = Double.toString(square);
+            String web = attraction.getmWeb();
 
-            double rooms = attraction.getmSquare();
-            String stringRooms = Double.toString(rooms);
+            String time = attraction.getmTime();
 
             double price = attraction.getmPrice();
             String stringPrice = Double.toString(price);
+
+            String comment = attraction.getmComment();
 
 
             // name
@@ -155,17 +153,21 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             TextView rePhone = (TextView) findViewById(R.id.realestate_phone);
             rePhone.setText(stringPhone);
 
-            // square
-            TextView reSquare = (TextView) findViewById(R.id.attraction_web);
-            reSquare.setText(stringSquare);
+            // web
+            TextView reWeb = (TextView) findViewById(R.id.attraction_web);
+            reWeb.setText(web);
 
-            // rooms
-            TextView reRooms = (TextView) findViewById(R.id.attraction_time);
-            reRooms.setText(stringRooms);
+            // time
+            TextView reTime = (TextView) findViewById(R.id.attraction_time);
+            reTime.setText(time);
 
             // price
             TextView rePrice = (TextView) findViewById(R.id.realestate_price);
             rePrice.setText(stringPrice);
+
+            // comment
+            TextView reComment = (TextView) findViewById(R.id.attraction_time);
+            reComment.setText(comment);
 
 
         } catch (SQLException e) {
@@ -173,32 +175,32 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         }
 
 
-        // fab
-        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.fab);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // kreiramo notifikaciju u builderu
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(SecondActivity.this);
-                Bitmap bitmap = BitmapFactory.decodeResource(SecondActivity.this.getResources(), R.drawable.ic_stat_tour);
-                builder.setSmallIcon(R.drawable.ic_stat_tour);
-                builder.setContentTitle(SecondActivity.this.getString(R.string.notification_title));
-                builder.setContentText(SecondActivity.this.getString(R.string.notification_text));
-                builder.setLargeIcon(bitmap);
-
-                // provera podesavanja
-                boolean status = preferences.getBoolean(NOTIF_STATUS, false);
-
-                if (status) {
-
-                    // prikaz u status baru (notification bar)
-                    NotificationManager manager = (NotificationManager) SecondActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                    manager.notify(NOTIFICATION_ID, builder.build());
-
-                }
-
-            }
-        });
+//        // fab
+//        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.fab);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // kreiramo notifikaciju u builderu
+//                NotificationCompat.Builder builder = new NotificationCompat.Builder(SecondActivity.this);
+//                Bitmap bitmap = BitmapFactory.decodeResource(SecondActivity.this.getResources(), R.drawable.ic_stat_tour);
+//                builder.setSmallIcon(R.drawable.ic_stat_tour);
+//                builder.setContentTitle(SecondActivity.this.getString(R.string.notification_title));
+//                builder.setContentText(SecondActivity.this.getString(R.string.notification_text));
+//                builder.setLargeIcon(bitmap);
+//
+//                // provera podesavanja
+//                boolean status = preferences.getBoolean(NOTIF_STATUS, false);
+//
+//                if (status) {
+//
+//                    // prikaz u status baru (notification bar)
+//                    NotificationManager manager = (NotificationManager) SecondActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+//                    manager.notify(NOTIFICATION_ID, builder.build());
+//
+//                }
+//
+//            }
+//        });
 
 
 
@@ -260,23 +262,30 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     }
 
 
-    // sta se desi kada kliknemo na stavke iz Notification Drawera
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_list) {
-
-            // saljemo intent prvoj aktivnosti da bi videli listu
-            Intent intent = new Intent(SecondActivity.this, FirstActivity.class);
-            startActivity(intent);
 
         } else if (id == R.id.nav_settings) {
 
             Intent intent = new Intent(SecondActivity.this, SettingsActivity.class);  // saljemo intent Settings.class
             startActivity(intent);
+
+        } else if (id == R.id.action_about) {
+
+            if (dialogAlert == null) {
+                dialogAlert = new AboutDialog(SecondActivity.this).prepareDialog(); // pozivamo prepareDialog() iz klase AboutDialog
+            } else {
+                if (dialogAlert.isShowing()) {
+                    dialogAlert.dismiss();
+                }
+
+            }
+            dialogAlert.show();
 
         }
 
@@ -284,6 +293,9 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 
 
     /**
@@ -308,39 +320,36 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         });
 
 
-        final EditText reName = (EditText) dialog.findViewById(R.id.input_realestate_name);
-        final EditText reDescription = (EditText) dialog.findViewById(R.id.input_realestate_description);
-        final EditText reAddress = (EditText) dialog.findViewById(R.id.input_realestate_address);
-        final EditText rePhone = (EditText) dialog.findViewById(R.id.input_realestate_phone);
-        final EditText reSquare = (EditText) dialog.findViewById(R.id.input_attraction_web);
-        final EditText reRooms = (EditText) dialog.findViewById(R.id.input_attraction_time);
-        final EditText rePrice = (EditText) dialog.findViewById(R.id.input_realestate_price);
+        final EditText attName = (EditText) dialog.findViewById(R.id.input_attraction_name);
+        final EditText attDescription = (EditText) dialog.findViewById(R.id.input_attraction_description);
+        final EditText attAddress = (EditText) dialog.findViewById(R.id.input_attraction_address);
+        final EditText attPhone = (EditText) dialog.findViewById(R.id.input_attraction_phone);
+        final EditText attWeb = (EditText) dialog.findViewById(R.id.input_attraction_web);
+        final EditText attTime = (EditText) dialog.findViewById(R.id.input_attraction_time);
+        final EditText attPrice = (EditText) dialog.findViewById(R.id.input_realestate_price);
+        final EditText attComment = (EditText) dialog.findViewById(R.id.input_attraction_comment);
 
 
         // update podataka u dialog pre edita
-        reName.setText(attraction.getmName());
-        reDescription.setText(attraction.getmName());
+        attName.setText(attraction.getmName());
 
-        // TODO: ovde moram videti za ponovni izbor slike
+        attDescription.setText(attraction.getmDescription());
 
-
-        reAddress.setText(attraction.getmAddress());
+        attAddress.setText(attraction.getmAddress());
 
         int phone = attraction.getmPhone();
         String stringPhone = Integer.toString(phone);
-        rePhone.setText(stringPhone);
+        attPhone.setText(stringPhone);
 
-        double square = attraction.getmPhone();
-        String stringSquare = Double.toString(square);
-        reSquare.setText(stringSquare);
+        attWeb.setText(attraction.getmWeb());
 
-        double roms = attraction.getmPhone();
-        String stringRoms = Double.toString(roms);
-        reRooms.setText(stringRoms);
+        attTime.setText(attraction.getmTime());
 
         double price = attraction.getmPhone();
         String stringPrice = Double.toString(price);
-        rePrice.setText(stringPrice);
+        attPrice.setText(stringPrice);
+
+        attComment.setText(attraction.getmComment());
 
 
         // save
@@ -349,19 +358,19 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
 
-                String name = reName.getText().toString();
+                String name = attName.getText().toString();
                 if (name.isEmpty()) {
-                    Toast.makeText(SecondActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this, "Name must be entered", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                String description = reDescription.getText().toString();
+                String description = attDescription.getText().toString();
                 if (description.isEmpty()) {
                     Toast.makeText(SecondActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                String address = reAddress.getText().toString();
+                String address = attAddress.getText().toString();
                 if (address.isEmpty()) {
                     Toast.makeText(SecondActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
                     return;
@@ -369,7 +378,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
                 int phone = 0;
                 try {
-                    phone = Integer.parseInt(rePhone.getText().toString());
+                    phone = Integer.parseInt(attPhone.getText().toString());
                 } catch (NumberFormatException e) {
                     Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
                     return;
@@ -377,7 +386,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
                 double square = 0;
                 try {
-                    square = Double.parseDouble(reSquare.getText().toString());
+                    square = Double.parseDouble(attWeb.getText().toString());
                 } catch (NumberFormatException e) {
                     Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
                     return;
@@ -385,7 +394,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
                 double rooms = 0;
                 try {
-                    rooms = Double.parseDouble(reRooms.getText().toString());
+                    rooms = Double.parseDouble(attTime.getText().toString());
                 } catch (NumberFormatException e) {
                     Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
                     return;
@@ -393,7 +402,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
                 double price = 0;
                 try {
-                    price = Double.parseDouble(rePrice.getText().toString());
+                    price = Double.parseDouble(attPrice.getText().toString());
                 } catch (NumberFormatException e) {
                     Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
                     return;
@@ -418,20 +427,15 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
                 try {
 
-                    getDatabaseHelper().getmRealEstateDao().update(attraction);
+                    getDatabaseHelper().getmAttractionDao().update(attraction);
 
                     //provera podesavanja (toast ili notification bar)
                     boolean toast = preferences.getBoolean(NOTIF_TOAST, false);
-                    boolean status = preferences.getBoolean(NOTIF_STATUS, false);
+
 
                     if (toast) {
                         Toast.makeText(SecondActivity.this, "Real Estate is updated", Toast.LENGTH_SHORT).show();
                     }
-
-                    if (status) {
-                        showStatusMesage("Real Estate is updated");
-                    }
-
 
                     finish();  // ovo sam morao da bi se vratio na prvu aktivnost i osvezio bazu novim podacima
 
@@ -462,32 +466,28 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     private void showMessage(String message) {
 
         boolean toast = preferences.getBoolean(NOTIF_TOAST, false);
-        boolean status = preferences.getBoolean(NOTIF_STATUS, false);
 
         if (toast) {  // ako je aktivan toast prikazi ovo
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
 
-        if (status) {  // ako je aktivan statusbar pozovi metodu ... i prosledi joj poruku (tekst) koji ce ispisati
-            showStatusMesage(message);
-        }
     }
 
 
-    // prikazivanje poruka u notification baru (status bar)
-    private void showStatusMesage(String message) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.ic_stat_tour);
-        builder.setContentTitle("Ispit");
-        builder.setContentText(message);
-
-        // slicica u notification drawer-u
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_tour);
-        builder.setLargeIcon(bm);
-
-        notificationManager.notify(1, builder.build());
-    }
+//    // prikazivanje poruka u notification baru (status bar)
+//    private void showStatusMesage(String message) {
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+//        builder.setSmallIcon(R.drawable.ic_stat_tour);
+//        builder.setContentTitle("Ispit");
+//        builder.setContentText(message);
+//
+//        // slicica u notification drawer-u
+//        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_tour);
+//        builder.setLargeIcon(bm);
+//
+//        notificationManager.notify(1, builder.build());
+//    }
 
 
     // metoda za izbor slike pri editu
@@ -584,7 +584,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     try {
-                        getDatabaseHelper().getmRealEstateDao().delete(attraction);
+                        getDatabaseHelper().getmAttractionDao().delete(attraction);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

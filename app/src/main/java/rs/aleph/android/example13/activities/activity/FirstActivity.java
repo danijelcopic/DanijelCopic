@@ -51,7 +51,7 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
 
     private static final int SELECT_PICTURE = 1;
     public static String NOTIF_TOAST = "pref_toast";
-    public static String NOTIF_STATUS = "pref_notification";
+
     private DatabaseHelper databaseHelper;
     private AlertDialog dialogAlert;
     private SharedPreferences preferences;
@@ -109,7 +109,7 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
         // ucitamo sve podatke iz baze u listu
         List<Attraction> attraction = new ArrayList<Attraction>();
         try {
-            attraction = getDatabaseHelper().getmRealEstateDao().queryForAll();
+            attraction = getDatabaseHelper().getmAttractionDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -179,10 +179,10 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
                 });
 
 
-                final EditText reName = (EditText) dialog.findViewById(R.id.input_realestate_name);
-                final EditText reDescription = (EditText) dialog.findViewById(R.id.input_realestate_description);
-                final EditText reAddress = (EditText) dialog.findViewById(R.id.input_realestate_address);
-                final EditText rePhone = (EditText) dialog.findViewById(R.id.input_realestate_phone);
+                final EditText reName = (EditText) dialog.findViewById(R.id.input_attraction_name);
+                final EditText reDescription = (EditText) dialog.findViewById(R.id.input_attraction_description);
+                final EditText reAddress = (EditText) dialog.findViewById(R.id.input_attraction_address);
+                final EditText rePhone = (EditText) dialog.findViewById(R.id.input_attraction_phone);
                 final EditText reWeb = (EditText) dialog.findViewById(R.id.input_attraction_web);
                 final EditText reTime = (EditText) dialog.findViewById(R.id.input_attraction_time);
                 final EditText rePrice = (EditText) dialog.findViewById(R.id.input_realestate_price);
@@ -196,19 +196,19 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
 
                         String name = reName.getText().toString();
                         if (name.isEmpty()) {
-                            Toast.makeText(FirstActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, "Name must be entered", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
                         String description = reDescription.getText().toString();
                         if (description.isEmpty()) {
-                            Toast.makeText(FirstActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, "Description must be entered", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
                         String address = reAddress.getText().toString();
                         if (address.isEmpty()) {
-                            Toast.makeText(FirstActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, "Address muust be entered", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -216,33 +216,44 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
                         try {
                             phone = Integer.parseInt(rePhone.getText().toString());
                         } catch (NumberFormatException e) {
-                            Toast.makeText(FirstActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, "Phone must be number.", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        double square = 0;
-                        try {
-                            square = Double.parseDouble(reWeb.getText().toString());
-                        } catch (NumberFormatException e) {
-                            Toast.makeText(FirstActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+
+                        String web = reWeb.getText().toString();
+                        if (web.isEmpty()) {
+                            Toast.makeText(FirstActivity.this, " Web address must be entered", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        double rooms = 0;
-                        try {
-                            rooms = Double.parseDouble(reTime.getText().toString());
-                        } catch (NumberFormatException e) {
-                            Toast.makeText(FirstActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+
+                        String time = reTime.getText().toString();
+                        if (time.isEmpty()) {
+                            Toast.makeText(FirstActivity.this, " Working time must be entered", Toast.LENGTH_SHORT).show();
                             return;
                         }
+
+
 
                         double price = 0;
                         try {
                             price = Double.parseDouble(rePrice.getText().toString());
                         } catch (NumberFormatException e) {
-                            Toast.makeText(FirstActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, "Price must be number.", Toast.LENGTH_SHORT).show();
                             return;
                         }
+
+
+                        String comment = reCommment.getText().toString();
+                        if (comment.isEmpty()) {
+                            Toast.makeText(FirstActivity.this, " Comment must be entered", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+
+
+
 
 
                         if (preview == null || imagePath == null) {
@@ -257,20 +268,20 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
                         attraction.setmPictures(imagePath);
                         attraction.setmAddress(address);
                         attraction.setmPhone(phone);
-                        attraction.setmSquare(square);
-                        attraction.setmRooms(rooms);
+                        attraction.setmWeb(web);
                         attraction.setmPrice(price);
+                        attraction.setmComment(comment);
+
 
 
                         try {
-                            getDatabaseHelper().getmRealEstateDao().create(attraction);
+                            getDatabaseHelper().getmAttractionDao().create(attraction);
 
                             //provera podesavanja
                             boolean toast = preferences.getBoolean(NOTIF_TOAST, false);
-                            boolean status = preferences.getBoolean(NOTIF_STATUS, false);
 
                             if (toast) {
-                                Toast.makeText(FirstActivity.this, "New Real Estate is added", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(FirstActivity.this, "New Attraction is added", Toast.LENGTH_SHORT).show();
                             }
 
                             reset();
@@ -293,10 +304,10 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
 
                         //provera podesavanja
                         boolean toast = preferences.getBoolean(NOTIF_TOAST, false);
-                        boolean status = preferences.getBoolean(NOTIF_STATUS, false);
+
 
                         if (toast) {
-                            Toast.makeText(FirstActivity.this, "New Real Estate is canceled", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, "New attraction is canceled", Toast.LENGTH_SHORT).show();
                         }
 
                         refresh(); // osvezavanje baze
@@ -306,19 +317,6 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
 
                 dialog.show();
 
-                break;
-
-
-            case R.id.action_about:
-                if (dialogAlert == null) {
-                    dialogAlert = new AboutDialog(FirstActivity.this).prepareDialog(); // pozivamo prepareDialog() iz klase AboutDialog
-                } else {
-                    if (dialogAlert.isShowing()) {
-                        dialogAlert.dismiss();
-                    }
-
-                }
-                dialogAlert.show();
                 break;
 
         }
@@ -348,7 +346,7 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
             if (adapter != null) {
                 adapter.clear();
                 try {
-                    List<Attraction> list = getDatabaseHelper().getmRealEstateDao().queryForAll();
+                    List<Attraction> list = getDatabaseHelper().getmAttractionDao().queryForAll();
                     adapter.addAll(list);
                     adapter.notifyDataSetChanged();
                 } catch (SQLException e) {
@@ -420,6 +418,18 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
 
             Intent intent = new Intent(FirstActivity.this, SettingsActivity.class);  // saljemo intent Settings.class
             startActivity(intent);
+
+        } else if (id == R.id.action_about) {
+
+            if (dialogAlert == null) {
+                dialogAlert = new AboutDialog(FirstActivity.this).prepareDialog(); // pozivamo prepareDialog() iz klase AboutDialog
+            } else {
+                if (dialogAlert.isShowing()) {
+                    dialogAlert.dismiss();
+                }
+
+            }
+            dialogAlert.show();
 
         }
 

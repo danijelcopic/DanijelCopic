@@ -18,9 +18,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "ormlite3.db";
 
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
-    private Dao<Attraction, Integer> mRealEstateDao = null;
+    private Dao<Attraction, Integer> mAttractionDao = null;
 
 
     //Potrebno je dodati konstruktor zbog pravilne inicijalizacije biblioteke
@@ -52,19 +52,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     //jedan Dao objekat sa kojim komuniciramo. Ukoliko imamo vise tabela
     //potrebno je napraviti Dao objekat za svaku tabelu
-    public Dao<Attraction, Integer> getmRealEstateDao() throws SQLException {
-        if (mRealEstateDao == null) {
-            mRealEstateDao = getDao(Attraction.class);
+    public Dao<Attraction, Integer> getmAttractionDao() throws SQLException {
+        if (mAttractionDao == null) {
+            mAttractionDao = getDao(Attraction.class);
         }
 
-        return mRealEstateDao;
+        return mAttractionDao;
     }
 
 
     //obavezno prilikom zatvarnaj rada sa bazom osloboditi resurse
     @Override
     public void close() {
-        mRealEstateDao = null;
+        mAttractionDao = null;
 
         super.close();
     }
