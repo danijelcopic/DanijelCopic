@@ -531,7 +531,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         String url = attraction.getmAddress();
         Intent intent= new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:36.4103,44.3872"));
+        intent.setData(Uri.parse("geo:45.267136, 19.8335499")); // Novi Sad
         startActivity(intent);
     }
 

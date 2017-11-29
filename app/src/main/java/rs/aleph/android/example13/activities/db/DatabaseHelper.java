@@ -15,10 +15,10 @@ import rs.aleph.android.example13.activities.db.model.Attraction;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
-    private static final String DATABASE_NAME = "ormlite3.db";
+    private static final String DATABASE_NAME = "ormlite9.db";
 
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private Dao<Attraction, Integer> mAttractionDao = null;
 

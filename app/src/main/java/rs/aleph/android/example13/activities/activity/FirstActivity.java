@@ -208,7 +208,7 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
 
                         String address = reAddress.getText().toString();
                         if (address.isEmpty()) {
-                            Toast.makeText(FirstActivity.this, "Address muust be entered", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, "Address must be entered", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -223,7 +223,7 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
 
                         String web = reWeb.getText().toString();
                         if (web.isEmpty()) {
-                            Toast.makeText(FirstActivity.this, " Web address must be entered", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FirstActivity.this, " Web address must be entered and start with http://", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
