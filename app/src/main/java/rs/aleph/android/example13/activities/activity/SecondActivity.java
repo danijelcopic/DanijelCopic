@@ -443,21 +443,6 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     }
 
 
-//    // prikazivanje poruka u notification baru (status bar)
-//    private void showStatusMesage(String message) {
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-//        builder.setSmallIcon(R.drawable.ic_stat_tour);
-//        builder.setContentTitle("Ispit");
-//        builder.setContentText(message);
-//
-//        // slicica u notification drawer-u
-//        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_tour);
-//        builder.setLargeIcon(bm);
-//
-//        notificationManager.notify(1, builder.build());
-//    }
-
 
     // metoda za izbor slike pri editu
     private void selectPicture() {
@@ -521,6 +506,37 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         startActivity(callIntent);
     }
+
+
+
+
+    // pokretanje web browsera
+    public void web(View v) {
+
+        String url = attraction.getmWeb();
+        Intent intent= new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+
+        startActivity(intent);
+    }
+
+
+
+
+    // pokretanje mape pri izboru adrese
+    public void map(View v) {
+
+
+        String url = attraction.getmAddress();
+        Intent intent= new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("geo:36.4103,44.3872"));
+        startActivity(intent);
+    }
+
+
+
 
 
     // picasso .... full image

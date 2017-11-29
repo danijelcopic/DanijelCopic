@@ -122,6 +122,7 @@
                 android:id="@+id/attraction_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="map"
                 android:textSize="16dp" />
 
         </LinearLayout>
@@ -171,6 +172,7 @@
                 android:id="@+id/attraction_web"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="web"
                 android:textSize="16dp" />
 
         </LinearLayout>
