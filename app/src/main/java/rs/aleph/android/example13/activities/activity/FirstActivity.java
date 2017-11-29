@@ -185,8 +185,8 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
                 final EditText rePhone = (EditText) dialog.findViewById(R.id.input_attraction_phone);
                 final EditText reWeb = (EditText) dialog.findViewById(R.id.input_attraction_web);
                 final EditText reTime = (EditText) dialog.findViewById(R.id.input_attraction_time);
-                final EditText rePrice = (EditText) dialog.findViewById(R.id.input_realestate_price);
-                final EditText reCommment = (EditText) dialog.findViewById(R.id.input_realestate_price);
+                final EditText rePrice = (EditText) dialog.findViewById(R.id.input_attraction_price);
+                final EditText reCommment = (EditText) dialog.findViewById(R.id.input_attraction_comment);
 
 
                 Button save = (Button) dialog.findViewById(R.id.btn_save);
@@ -269,6 +269,7 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
                         attraction.setmAddress(address);
                         attraction.setmPhone(phone);
                         attraction.setmWeb(web);
+                        attraction.setmTime(time);
                         attraction.setmPrice(price);
                         attraction.setmComment(comment);
 

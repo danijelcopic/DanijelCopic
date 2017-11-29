@@ -54,8 +54,8 @@
     <string name="btn_choose">CHOOSE</string>
     <string name="label_address">ADDRESS:</string>
     <string name="label_phone">PHONE:</string>
-    <string name="label_web">WEB:</string>
-    <string name="label_time">TIME:</string>
+    <string name="label_web">WEB ADDRESS:</string>
+    <string name="label_time">WORKING TIME:</string>
     <string name="label_price">PRICE:</string>
     <string name="label_comment">COMMENT:</string>
 

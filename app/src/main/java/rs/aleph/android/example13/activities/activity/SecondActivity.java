@@ -289,7 +289,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         final EditText attPhone = (EditText) dialog.findViewById(R.id.input_attraction_phone);
         final EditText attWeb = (EditText) dialog.findViewById(R.id.input_attraction_web);
         final EditText attTime = (EditText) dialog.findViewById(R.id.input_attraction_time);
-        final EditText attPrice = (EditText) dialog.findViewById(R.id.input_realestate_price);
+        final EditText attPrice = (EditText) dialog.findViewById(R.id.input_attraction_price);
         final EditText attComment = (EditText) dialog.findViewById(R.id.input_attraction_comment);
 
 

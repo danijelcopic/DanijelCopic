@@ -173,7 +173,7 @@
             android:textSize="12dp" />
 
         <EditText
-            android:id="@+id/input_realestate_price"
+            android:id="@+id/input_attraction_price"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="numberDecimal"
