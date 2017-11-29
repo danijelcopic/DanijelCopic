@@ -45,7 +45,6 @@ import rs.aleph.android.example13.activities.dialogs.AboutDialog;
 
 
 import static rs.aleph.android.example13.activities.activity.FirstActivity.NOTIF_TOAST;
-import static rs.aleph.android.example13.activities.activity.FirstActivity.NOTIF_STATUS;
 
 
 public class SecondActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -366,13 +365,13 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
                 String description = attDescription.getText().toString();
                 if (description.isEmpty()) {
-                    Toast.makeText(SecondActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this, "Description must be entered", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String address = attAddress.getText().toString();
                 if (address.isEmpty()) {
-                    Toast.makeText(SecondActivity.this, "Must be entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this, "Address must be entered", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -380,31 +379,37 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
                 try {
                     phone = Integer.parseInt(attPhone.getText().toString());
                 } catch (NumberFormatException e) {
-                    Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this, "Phone must be number.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                double square = 0;
-                try {
-                    square = Double.parseDouble(attWeb.getText().toString());
-                } catch (NumberFormatException e) {
-                    Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+
+                String web = attWeb.getText().toString();
+                if (web.isEmpty()) {
+                    Toast.makeText(SecondActivity.this, "Web address must be entered", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                double rooms = 0;
-                try {
-                    rooms = Double.parseDouble(attTime.getText().toString());
-                } catch (NumberFormatException e) {
-                    Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+
+                String time = attTime.getText().toString();
+                if (time.isEmpty()) {
+                    Toast.makeText(SecondActivity.this, "Working time must be entered", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
+                String comment = attComment.getText().toString();
+                if (comment.isEmpty()) {
+                    Toast.makeText(SecondActivity.this, "Working time must be entered", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 double price = 0;
                 try {
                     price = Double.parseDouble(attPrice.getText().toString());
                 } catch (NumberFormatException e) {
-                    Toast.makeText(SecondActivity.this, "Must be number.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this, "Price must be number.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -420,8 +425,8 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
                 attraction.setmPictures(imagePath);
                 attraction.setmAddress(address);
                 attraction.setmPhone(phone);
-                attraction.setmSquare(square);
-                attraction.setmRooms(rooms);
+                attraction.setmWeb(web);
+                attraction.setmComment(comment);
                 attraction.setmPrice(price);
 
 
