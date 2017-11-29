@@ -134,7 +134,7 @@
             android:id="@+id/input_attraction_web"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="numberDecimal"
+            android:inputType="textWebEmailAddress"
             android:textSize="14dp" />
 
     </LinearLayout>

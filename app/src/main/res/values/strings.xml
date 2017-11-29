@@ -48,6 +48,7 @@
     <string name="label_description">DESCRIPTION:</string>
     <string name="label_pictures">PICTURE</string>
 
+    <!-- label -->
     <string name="save">SAVE</string>
     <string name="cancel">CANCEL</string>
     <string name="btn_choose">CHOOSE</string>
@@ -56,14 +57,14 @@
     <string name="label_web">WEB:</string>
     <string name="label_time">TIME:</string>
     <string name="label_price">PRICE:</string>
-    <string name="label_comment">COMMENT::</string>
+    <string name="label_comment">COMMENT:</string>
 
+   <!-- naw drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="tour">TOUR</string>
 
-    <string name="notification_title">Tour scheduled</string>
-    <string name="notification_text">Tour scheduled during the next week.</string>
+
+
 
 
 </resources>

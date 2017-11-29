@@ -44,7 +44,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/realestate_name"
+                android:id="@+id/attraction_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp" />
@@ -68,7 +68,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/realestate_description"
+                android:id="@+id/attraction_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp" />
@@ -119,7 +119,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/realestate_address"
+                android:id="@+id/attraction_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp" />
@@ -143,7 +143,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/realestate_phone"
+                android:id="@+id/attraction_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="call"
@@ -216,48 +216,40 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/realestate_price"
+                android:id="@+id/attraction_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp" />
+
+        </LinearLayout>
 
 
             <!-- comment -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/label_comment"
-                    android:textSize="12dp" />
+                    android:textStyle="bold"
+                    android:textSize="18dp" />
 
-                <EditText
-                    android:id="@+id/input_attraction_comment"
+                <TextView
+                    android:id="@+id/attraction_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="14dp" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <!-- btn tour -->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|right"
-            android:layout_margin="@dimen/fab_margin"
-            app:backgroundTint="@color/colorPrimaryDark"
-            app:fabSize="normal"
-            app:rippleColor="@color/colorPrimary"
-            app:srcCompat="@android:drawable/ic_menu_add" />
 
 
-    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

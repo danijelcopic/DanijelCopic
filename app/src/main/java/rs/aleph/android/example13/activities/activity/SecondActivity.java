@@ -1,14 +1,12 @@
 package rs.aleph.android.example13.activities.activity;
 
 import android.app.Dialog;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -131,11 +128,11 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
 
             // name
-            TextView reName = (TextView) findViewById(R.id.realestate_name);
+            TextView reName = (TextView) findViewById(R.id.attraction_name);
             reName.setText(name);
 
             // description
-            TextView reDescription = (TextView) findViewById(R.id.realestate_description);
+            TextView reDescription = (TextView) findViewById(R.id.attraction_description);
             reDescription.setText(description);
 
             // picture
@@ -145,11 +142,11 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             reset();
 
             // address
-            TextView reAddress = (TextView) findViewById(R.id.realestate_address);
+            TextView reAddress = (TextView) findViewById(R.id.attraction_address);
             reAddress.setText(address);
 
             // phone
-            TextView rePhone = (TextView) findViewById(R.id.realestate_phone);
+            TextView rePhone = (TextView) findViewById(R.id.attraction_phone);
             rePhone.setText(stringPhone);
 
             // web
@@ -161,11 +158,11 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
             reTime.setText(time);
 
             // price
-            TextView rePrice = (TextView) findViewById(R.id.realestate_price);
+            TextView rePrice = (TextView) findViewById(R.id.attraction_price);
             rePrice.setText(stringPrice);
 
             // comment
-            TextView reComment = (TextView) findViewById(R.id.attraction_time);
+            TextView reComment = (TextView) findViewById(R.id.attraction_comment);
             reComment.setText(comment);
 
 
@@ -174,41 +171,8 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         }
 
 
-//        // fab
-//        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.fab);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // kreiramo notifikaciju u builderu
-//                NotificationCompat.Builder builder = new NotificationCompat.Builder(SecondActivity.this);
-//                Bitmap bitmap = BitmapFactory.decodeResource(SecondActivity.this.getResources(), R.drawable.ic_stat_tour);
-//                builder.setSmallIcon(R.drawable.ic_stat_tour);
-//                builder.setContentTitle(SecondActivity.this.getString(R.string.notification_title));
-//                builder.setContentText(SecondActivity.this.getString(R.string.notification_text));
-//                builder.setLargeIcon(bitmap);
-//
-//                // provera podesavanja
-//                boolean status = preferences.getBoolean(NOTIF_STATUS, false);
-//
-//                if (status) {
-//
-//                    // prikaz u status baru (notification bar)
-//                    NotificationManager manager = (NotificationManager) SecondActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-//                    manager.notify(NOTIFICATION_ID, builder.build());
-//
-//                }
-//
-//            }
-//        });
-
-
-
-
 
     }
-
-
-
 
 
 
@@ -439,7 +403,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
 
                     if (toast) {
-                        Toast.makeText(SecondActivity.this, "Real Estate is updated", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SecondActivity.this, "Attraction is updated", Toast.LENGTH_SHORT).show();
                     }
 
                     finish();  // ovo sam morao da bi se vratio na prvu aktivnost i osvezio bazu novim podacima
@@ -599,7 +563,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
                     boolean toast = preferences.getBoolean(NOTIF_TOAST, false);
 
                     if (toast) {
-                        Toast.makeText(SecondActivity.this, "Real Estate is deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SecondActivity.this, "Attraction is deleted", Toast.LENGTH_SHORT).show();
                     }
 
 
